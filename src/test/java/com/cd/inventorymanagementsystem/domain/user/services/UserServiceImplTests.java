@@ -88,8 +88,60 @@ public class UserServiceImplTests {
         BDDMockito.doReturn(users).when(mockUserRepo).findAll();
         List<User> returnedUsers = userService.getAllUsers();
         Assertions.assertIterableEquals(users, returnedUsers);
-
     }
+
+    @Test
+    @DisplayName("User Service: Update User - Success")
+    public void updateUserTestSuccess() throws UserException{
+
+        User expectedUserUpdate = User.builder()
+                .firstName("firstName")
+                .lastName("lastName")
+                .email("email")
+                .password("password")
+                .role(Role.ADMIN)
+                .build();
+
+        BDDMockito.doReturn(Optional.of(mockResponseUser)).when(mockUserRepo).findById(1);
+        BDDMockito.doReturn(expectedUserUpdate).when(mockUserRepo).save(ArgumentMatchers.any());
+        User actualUser = userService.updateUserById(1, expectedUserUpdate);
+        Assertions.assertEquals(expectedUserUpdate.toString(), actualUser.toString());
+    }
+    @Test
+    @DisplayName("User Service: Update User - Fail")
+    public void updateUserTestFail(){
+        User expectedUserUpdate = User.builder()
+                .firstName("firstName")
+                .lastName("lastName")
+                .email("email")
+                .password("password")
+                .role(Role.ADMIN)
+                .build();
+
+        BDDMockito.doReturn(Optional.empty()).when(mockUserRepo).findById(1);
+        Assertions.assertThrows(UserException.class, () ->{
+            userService.updateUserById(1,expectedUserUpdate);
+        });
+    }
+
+    @Test
+    @DisplayName("User Service: Delete User - Success")
+    public void deleteUserTestSuccess() throws UserException{
+        BDDMockito.doReturn(Optional.of(mockResponseUser)).when(mockUserRepo).findById(1);
+        Boolean actualResponse = userService.deleteUserById(1);
+        Assertions.assertTrue(actualResponse);
+    }
+
+    @Test
+    @DisplayName("User Service: Delete User - Fail")
+    public void deleteUserTestFail(){
+        BDDMockito.doReturn(Optional.empty()).when(mockUserRepo).findById(1);
+        Assertions.assertThrows(UserException.class, () ->{
+            userService.deleteUserById(1);
+        });
+    }
+
+
 
 
 }
