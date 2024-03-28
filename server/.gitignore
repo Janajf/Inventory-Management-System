@@ -1,6 +1,6 @@
 HELP.md
 target/
-!.mvn/wrapper/maven-wrapper.jar
+!server/.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
@@ -14,7 +14,7 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
+server/.idea
 *.iws
 *.iml
 *.ipr
@@ -37,7 +37,7 @@ build/
 
 #Ignore Maven
 mvnw**
-.mvn
+server/.mvn
 
 # dependencies
 /node_modules
