@@ -56,7 +56,6 @@ public class UserServiceImplTests {
                 .admin(true)
                 .items(items)
                 .build();
-
     }
 
     @Test
@@ -82,6 +81,23 @@ public class UserServiceImplTests {
         BDDMockito.doReturn(Optional.empty()).when(mockUserRepo).findById(1);
         Assertions.assertThrows(UserException.class, () -> {
             userService.getUserById(1);
+        });
+    }
+
+    @Test
+    @DisplayName("User Service: Get User By Email - Success")
+    public void getUserByEmailTestSuccess() throws UserException{
+        BDDMockito.doReturn(Optional.of(mockResponseUser)).when(mockUserRepo).findByEmail("email");
+        User foundUser = userService.getByEmail("email");
+        Assertions.assertEquals(foundUser.toString(), mockResponseUser.toString());
+    }
+
+    @Test
+    @DisplayName("User Service: Get User By Email - Fail")
+    public void getUserByEmailTestFail() throws UserException{
+        BDDMockito.doReturn(Optional.empty()).when(mockUserRepo).findByEmail("email");
+        Assertions.assertThrows(UserException.class, () ->{
+            userService.getByEmail("email");
         });
     }
 
@@ -154,8 +170,5 @@ public class UserServiceImplTests {
             userService.deleteUserById(1);
         });
     }
-
-
-
 
 }

@@ -40,6 +40,18 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User getByEmail(String userEmail) throws UserException {
+        Optional<User> userOptional = userRepo.findByEmail(userEmail);
+        if(userOptional.isEmpty()){
+            logger.error("User with {} does not exist", userEmail);
+            throw new UserException("User not found");
+        }
+
+        return userOptional.get();
+    }
+
+
+    @Override
     public List<User> getAllUsers() {
         return (List<User>)userRepo.findAll();
     }
