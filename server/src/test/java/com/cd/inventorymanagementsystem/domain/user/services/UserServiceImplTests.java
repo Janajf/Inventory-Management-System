@@ -1,7 +1,7 @@
 package com.cd.inventorymanagementsystem.domain.user.services;
 
+import com.cd.inventorymanagementsystem.domain.item.Item;
 import com.cd.inventorymanagementsystem.domain.user.exceptions.UserException;
-import com.cd.inventorymanagementsystem.domain.user.models.Role;
 import com.cd.inventorymanagementsystem.domain.user.models.User;
 import com.cd.inventorymanagementsystem.domain.user.repos.UserRepo;
 import org.junit.jupiter.api.Assertions;
@@ -34,24 +34,28 @@ public class UserServiceImplTests {
     @BeforeEach
     public void setUp(){
         List<User> users = new ArrayList<>();
+        List<Item> items = new ArrayList<>();
 
         inputUser = User.builder()
+                .uid("uid")
                 .firstName("firstName")
                 .lastName("lastName")
                 .email("email")
                 .password("password")
-                .role(Role.ADMIN)
+                .admin(true)
+                .items(items)
                 .build();
 
         mockResponseUser = User.builder()
                 .id(1)
+                .uid("uid")
                 .firstName("firstName")
                 .lastName("lastName")
                 .email("email")
                 .password("password")
-                .role(Role.ADMIN)
+                .admin(true)
+                .items(items)
                 .build();
-
     }
 
     @Test
@@ -81,6 +85,23 @@ public class UserServiceImplTests {
     }
 
     @Test
+    @DisplayName("User Service: Get User By Email - Success")
+    public void getUserByEmailTestSuccess() throws UserException{
+        BDDMockito.doReturn(Optional.of(mockResponseUser)).when(mockUserRepo).findByEmail("email");
+        User foundUser = userService.getByEmail("email");
+        Assertions.assertEquals(foundUser.toString(), mockResponseUser.toString());
+    }
+
+    @Test
+    @DisplayName("User Service: Get User By Email - Fail")
+    public void getUserByEmailTestFail() throws UserException{
+        BDDMockito.doReturn(Optional.empty()).when(mockUserRepo).findByEmail("email");
+        Assertions.assertThrows(UserException.class, () ->{
+            userService.getByEmail("email");
+        });
+    }
+
+    @Test
     @DisplayName("User Service: Get All Users - Success")
     public void getAllUsersTestSuccess(){
         List<User> users = new ArrayList<>();
@@ -94,12 +115,16 @@ public class UserServiceImplTests {
     @DisplayName("User Service: Update User - Success")
     public void updateUserTestSuccess() throws UserException{
 
+        List<Item> items = new ArrayList<>();
+
         User expectedUserUpdate = User.builder()
+                .uid("uid")
                 .firstName("firstName")
                 .lastName("lastName")
                 .email("email")
                 .password("password")
-                .role(Role.ADMIN)
+                .admin(true)
+                .items(items)
                 .build();
 
         BDDMockito.doReturn(Optional.of(mockResponseUser)).when(mockUserRepo).findById(1);
@@ -110,12 +135,17 @@ public class UserServiceImplTests {
     @Test
     @DisplayName("User Service: Update User - Fail")
     public void updateUserTestFail(){
+
+        List<Item> items = new ArrayList<>();
+
         User expectedUserUpdate = User.builder()
+                .uid("uid")
                 .firstName("firstName")
                 .lastName("lastName")
                 .email("email")
                 .password("password")
-                .role(Role.ADMIN)
+                .admin(true)
+                .items(items)
                 .build();
 
         BDDMockito.doReturn(Optional.empty()).when(mockUserRepo).findById(1);
@@ -140,8 +170,5 @@ public class UserServiceImplTests {
             userService.deleteUserById(1);
         });
     }
-
-
-
 
 }
