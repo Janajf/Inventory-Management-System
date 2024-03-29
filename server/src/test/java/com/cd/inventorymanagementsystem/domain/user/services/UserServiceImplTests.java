@@ -1,7 +1,7 @@
 package com.cd.inventorymanagementsystem.domain.user.services;
 
+import com.cd.inventorymanagementsystem.domain.item.Item;
 import com.cd.inventorymanagementsystem.domain.user.exceptions.UserException;
-import com.cd.inventorymanagementsystem.domain.user.models.Role;
 import com.cd.inventorymanagementsystem.domain.user.models.User;
 import com.cd.inventorymanagementsystem.domain.user.repos.UserRepo;
 import org.junit.jupiter.api.Assertions;
@@ -34,22 +34,27 @@ public class UserServiceImplTests {
     @BeforeEach
     public void setUp(){
         List<User> users = new ArrayList<>();
+        List<Item> items = new ArrayList<>();
 
         inputUser = User.builder()
+                .uid("uid")
                 .firstName("firstName")
                 .lastName("lastName")
                 .email("email")
                 .password("password")
-                .role(Role.ADMIN)
+                .admin(true)
+                .items(items)
                 .build();
 
         mockResponseUser = User.builder()
                 .id(1)
+                .uid("uid")
                 .firstName("firstName")
                 .lastName("lastName")
                 .email("email")
                 .password("password")
-                .role(Role.ADMIN)
+                .admin(true)
+                .items(items)
                 .build();
 
     }
@@ -94,12 +99,16 @@ public class UserServiceImplTests {
     @DisplayName("User Service: Update User - Success")
     public void updateUserTestSuccess() throws UserException{
 
+        List<Item> items = new ArrayList<>();
+
         User expectedUserUpdate = User.builder()
+                .uid("uid")
                 .firstName("firstName")
                 .lastName("lastName")
                 .email("email")
                 .password("password")
-                .role(Role.ADMIN)
+                .admin(true)
+                .items(items)
                 .build();
 
         BDDMockito.doReturn(Optional.of(mockResponseUser)).when(mockUserRepo).findById(1);
@@ -110,12 +119,17 @@ public class UserServiceImplTests {
     @Test
     @DisplayName("User Service: Update User - Fail")
     public void updateUserTestFail(){
+
+        List<Item> items = new ArrayList<>();
+
         User expectedUserUpdate = User.builder()
+                .uid("uid")
                 .firstName("firstName")
                 .lastName("lastName")
                 .email("email")
                 .password("password")
-                .role(Role.ADMIN)
+                .admin(true)
+                .items(items)
                 .build();
 
         BDDMockito.doReturn(Optional.empty()).when(mockUserRepo).findById(1);

@@ -1,10 +1,10 @@
 package com.cd.inventorymanagementsystem.domain.user.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.cd.inventorymanagementsystem.domain.item.Item;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,17 +18,22 @@ public class User {
     @Id
     @GeneratedValue
     private Integer id;
+    private String uid;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
-    private Enum role;
+    private Boolean admin;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private List<Item> items;
 
-    public User(String firstName, String lastName, String email, String password, Enum role) {
+    public User(String uid, String firstName, String lastName, String email, String password, Boolean admin) {
+        this.uid = uid;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.admin = admin;
     }
 }
