@@ -70,6 +70,19 @@
 }
 
 .password-toggle img {
+  position: absolute;
   width: 20px;
   height: 20px;
+}
+
+.icons {
+  position: absolute;
+}
+
+.icons i {
+  position: relative;
+  left: 440px;
+  top: 18px;
+  font-size: 2rem;
+  cursor: pointer;
 }

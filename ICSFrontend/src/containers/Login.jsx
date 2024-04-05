@@ -1,32 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Password from '../components/Password';
+//import Password from '../components/Password';
+import { getUsers } from '../components/userService';
 //import  from '../../components/';
 
-const Login = () => {
+const Login = ({ setCurrentUser }) => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        console.log("Logging in...");
+        console.log("Username:", username);
+        console.log("Password:", password);
+
+        setUsername('');
+        setPassword('');
+    };
 
     return (
         <div>
             {/* <Login /> */}
             <h2>Log in to CD Inventory Control System</h2>
-
-            <input type="email" placeholder="Email/Username" className="email"/>
+            <form onSubmit={handleLogin}>
+                <input type="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
             
-            <br/>
-            <br/>
+                <br/>
+                <br/>
 
-            <div className="password-login">
-                <Password />
-            </div>
+                <div className="password-login">
+                    <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                </div>
 
-            <br/>
-            <br/>
+                <br/>
+                <br/>
 
-            <span>
-                <button type="submit" className="login">
-                    <span>Log In</span>
-                </button>
-            </span>
+                <span>
+                    <button type="submit" className="login" onClick={handleLogin}>
+                        <span>Log In</span>
+                    </button>
+                </span>
+            </form>
 
             <br/>
             <br/>
