@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -54,7 +55,12 @@ public class UserController {
                     .build();
         }
     }
-
+    @GetMapping("")
+    public ResponseEntity<List<User>> getAllUsers(){
+        List<User> users = userService.getAllUsers();
+        ResponseEntity<List<User>> response = new ResponseEntity<>(users, HttpStatus.OK);
+        return response;
+    }
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Integer id, @RequestBody User user){
         try{
