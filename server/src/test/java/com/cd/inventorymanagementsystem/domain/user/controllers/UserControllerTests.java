@@ -1,6 +1,6 @@
 package com.cd.inventorymanagementsystem.domain.user.controllers;
 
-import com.cd.inventorymanagementsystem.domain.item.Item;
+import com.cd.inventorymanagementsystem.domain.item.models.Item;
 import com.cd.inventorymanagementsystem.domain.user.exceptions.UserException;
 import com.cd.inventorymanagementsystem.domain.user.models.User;
 import com.cd.inventorymanagementsystem.domain.user.services.UserService;
