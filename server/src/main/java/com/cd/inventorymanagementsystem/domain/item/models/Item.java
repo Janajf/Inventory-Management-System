@@ -4,30 +4,17 @@ import com.cd.inventorymanagementsystem.domain.loan.models.Loan;
 import com.cd.inventorymanagementsystem.domain.maintenance.models.Maintenance;
 import com.cd.inventorymanagementsystem.domain.user.models.User;
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.util.Date;
 import java.util.List;
-
-@Getter
-@Setter
-@ToString
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Table(name="items")
-public class Item {
-    @Id
-    @GeneratedValue
+public abstract class Item {
     private Integer id;
     private String name;
+    private String description;
     private Date purchaseDate;
     private String grantIssuer;
-    private String assetNumber;
-    private String serialNumber;
-    private String storageLocation;
-    private String description;
+    private Integer quantity;
+    private Double price;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")

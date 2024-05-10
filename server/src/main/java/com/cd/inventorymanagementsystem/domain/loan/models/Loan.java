@@ -1,6 +1,7 @@
 package com.cd.inventorymanagementsystem.domain.loan.models;
 
-import com.cd.inventorymanagementsystem.domain.item.models.Item;
+import com.cd.inventorymanagementsystem.domain.computer.models.Computer;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,7 +22,7 @@ public class Loan {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="item_id")
-    private Item item;
+    private Computer computer;
     private Date startDate;
     private Date endDate;
 }

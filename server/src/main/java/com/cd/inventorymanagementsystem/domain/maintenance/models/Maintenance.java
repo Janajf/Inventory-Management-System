@@ -1,10 +1,13 @@
 package com.cd.inventorymanagementsystem.domain.maintenance.models;
 
-import com.cd.inventorymanagementsystem.domain.item.models.Item;
+
+import com.cd.inventorymanagementsystem.domain.computer.models.Computer;
+import com.cd.inventorymanagementsystem.domain.software.models.Software;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,10 +20,14 @@ import java.util.Date;
 public class Maintenance {
     @Id
     @GeneratedValue
+    @Column(name="maintenance_id")
     private Integer id;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name ="item_id")
-    private Item item;
+    @JoinColumn(name ="computer_id")
+    private Computer computer;
     private Date date;
     private String description;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="maintenance_id")
+    private List<Software> software;
 }
