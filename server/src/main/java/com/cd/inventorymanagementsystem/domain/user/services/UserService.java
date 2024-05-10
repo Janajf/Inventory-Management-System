@@ -11,7 +11,6 @@ public interface UserService {
     User getByEmail(String userEmail) throws UserException;
     List<User> getAllUsers();
     User updateUserById(Integer userId, User user) throws UserException;
-
     Boolean deleteUserById(Integer userId) throws UserException;
 
 }

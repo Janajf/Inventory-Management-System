@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService{
         Optional<User> userOptional = userRepo.findById(userId);
 
         if(userOptional.isEmpty()){
-            throw new UserException("User does not exists, cannot update");
+            throw new UserException("User does not exist, cannot update");
         }
 
         User savedUser = userOptional.get();
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService{
         savedUser.setEmail(user.getEmail());
         savedUser.setPassword(user.getPassword());
         savedUser.setAdmin(user.getAdmin());
-        savedUser.setItems(user.getItems());
+        savedUser.setComputers(user.getComputers());
 
         return userRepo.save(savedUser);
     }

@@ -1,6 +1,6 @@
 package com.cd.inventorymanagementsystem.domain.user.models;
 
-import com.cd.inventorymanagementsystem.domain.item.models.Item;
+import com.cd.inventorymanagementsystem.domain.computer.models.Computer;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +17,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue
+    @Column(name="user_id")
     private Integer id;
     private String uid;
     private String firstName;
@@ -24,9 +25,11 @@ public class User {
     private String email;
     private String password;
     private Boolean admin;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private List<Item> items;
+    private List<Computer> computers;
+
 
     public User(String uid, String firstName, String lastName, String email, String password, Boolean admin) {
         this.uid = uid;

@@ -1,6 +1,6 @@
 package com.cd.inventorymanagementsystem.domain.user.controllers;
 
-import com.cd.inventorymanagementsystem.domain.item.models.Item;
+import com.cd.inventorymanagementsystem.domain.computer.models.Computer;
 import com.cd.inventorymanagementsystem.domain.user.exceptions.UserException;
 import com.cd.inventorymanagementsystem.domain.user.models.User;
 import com.cd.inventorymanagementsystem.domain.user.services.UserService;
@@ -48,7 +48,7 @@ public class UserControllerTests {
     @BeforeEach
     public void setUp() throws JsonProcessingException {
         List<User> users = new ArrayList<>();
-        List<Item> items = new ArrayList<>();
+        List<Computer> computers = new ArrayList<>();
 
         inputUser = User.builder()
                 .uid("uid")
@@ -57,7 +57,7 @@ public class UserControllerTests {
                 .email("email")
                 .password("password")
                 .admin(true)
-                .items(items)
+                .computers(computers)
                 .build();
 
         mockResponseUser = User.builder()
@@ -68,7 +68,7 @@ public class UserControllerTests {
                 .email("email")
                 .password("password")
                 .admin(true)
-                .items(items)
+                .computers(computers)
                 .build();
 
         JsonMapper jsonMapper = new JsonMapper();
@@ -140,7 +140,7 @@ public class UserControllerTests {
     @DisplayName("PUT /user/1 - Success")
     public void updateUserTestSuccess() throws Exception{
 
-        List<Item> items = new ArrayList<>();
+        List<Computer> computers = new ArrayList<>();
         User updatedUser = User.builder()
                 .id(1)
                 .uid("uid")
@@ -149,7 +149,7 @@ public class UserControllerTests {
                 .email("updatedEmail")
                 .password("password")
                 .admin(true)
-                .items(items)
+                .computers(computers)
                 .build();
 
         BDDMockito.doReturn(updatedUser).when(mockUserService).updateUserById(any(), any());
