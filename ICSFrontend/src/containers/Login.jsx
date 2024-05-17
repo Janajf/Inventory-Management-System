@@ -19,7 +19,7 @@ const Login = ({ setCurrentUser }) => {
 
         try {
             await doSignInUserWithEmailAndPassword(email, password);
-            window.location.href = "/dashboard";
+            window.location.href = "/home";
         } catch(error){
             setMessage('Email or password is invalid')
         }
