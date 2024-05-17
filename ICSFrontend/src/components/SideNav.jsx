@@ -32,7 +32,7 @@ const SideNav = () => {
             <div></div>
             <img className="hamburger" src={hamburger} onClick={() => setDisplay(false)}></img>
           </div>
-          <Link to={`/inventory`}> Inventory </Link>
+          <Link to={`/home`}> Home </Link>
           <Link to={`/dashboard`}> Dashboard </Link>
           <Link to={`/profile`}> Profile </Link>
           <button className="side-button" onClick={signout}>Sign out</button>

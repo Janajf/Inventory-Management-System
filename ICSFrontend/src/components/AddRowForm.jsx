@@ -7,13 +7,12 @@ const AddRowForm = ( { setTableRows, setAddRowMode, addNewRow, selectedTable}) =
   const tableFields = {
     Laptops: ["assetTag", "serialNumber", "status", "brand", "model", "type", "color", "issuedTo", "grant", "charged"],
     Students: ["badge", "studentName", "location", "notes"],
-    Supplies: ["sku" , "quantityInStock", "unit", "buildingLocation", "floor", "lockerArea", "reorderLevel", "reoderQuantity", "leadTimeForReorder", "vendor", "estimatedCost" ]
+    Supplies: ["sku" , "quantityInStock", "unit", "buildingLocation", "floor", "lockerArea", "reorderLevel", "reorderQuantity", "leadTimeForReorder", "vendor", "estimatedCost" ]
   };
 
-    const fields = tableFields[selectedTable] || [];
-
     const apiUrl = process.env.REACT_APP_API_URL;
-      const [newRowValues, setNewRowValues] = useState({})
+    const fields = tableFields[selectedTable] || [];
+    const [newRowValues, setNewRowValues] = useState({})
 
       const handleInputChange = (field, value) => {
         setNewRowValues((prev) => ({
@@ -27,11 +26,19 @@ const AddRowForm = ( { setTableRows, setAddRowMode, addNewRow, selectedTable}) =
         const newRow = { ...newRowValues };
         async function create() {
           try{
-            await axios.post(`${apiUrl}/items`, newRow);    
-            const response = await axios.get(`${apiUrl}/items`);
+            if(selectedTable === "Computers") {
+              console.log('1');
+              await axios.post(`${apiUrl}/computers`, newRow);  
+              console.log('2');
+            } else if(selectedTable === "Students"){
+              // await axios.post(`${apiUrl}/`, newRow);
+            } else {
+              await axios.post(`${apiUrl}/supplies`, newRow);
+            }
+            const response = await axios.get(`${apiUrl}/${selectedTable.toLowerCase()}`);
             const id= response.data[response.data.length -1].id;
             newRow.id = id;
-            setTableRows((prevRows) => [...prevRows, newRow]);
+            fetchData();
           }catch(error){
               console.error('something went wrong could not create');
           }
@@ -46,8 +53,8 @@ const AddRowForm = ( { setTableRows, setAddRowMode, addNewRow, selectedTable}) =
             <button onClick={addNewRow} className="addNewButton">Cancel</button>
             <div className="newRowFormContainer">
                 {fields.map((field, index) => (
-                  <div>
-                  <label>{field}</label>
+                  <div key={index}>
+                  <label style={{textTransform: 'capitalize'}}>{field}: </label>
                   <input onChange={(e) => handleInputChange(field, e.target.value)}>
                   </input>
                   </div>

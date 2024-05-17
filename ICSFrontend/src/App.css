@@ -1,5 +1,6 @@
 @import url("https://use.typekit.net/ccg4ogq.css");
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
+@import url("tabulator-tables");
 
 :root {
   --code-blue: rgb(2, 53, 129);
@@ -217,10 +218,12 @@ input::placeholder {
 .addNewButton:hover{
   border: 2px solid white;
   cursor: pointer;
+  background-color: #0082d98b;
 }
 
 .modal-background {
   position: fixed;
+  overflow: auto;
   top: 0;
   left: 0;
   width: 100%;
@@ -241,7 +244,14 @@ input::placeholder {
   background-color: var(--code-black);
   padding: 80px;
   border-radius: 35px;
+  min-height: 20%;
+  max-height: 80%;
+  overflow: auto;
   box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.459);
+}
+
+.newRowForm::-webkit-scrollbar {
+  display:none;
 }
 
 .newRowForm h1{
@@ -269,7 +279,6 @@ input::placeholder {
 
 .newRowForm button:hover{
   cursor: pointer;
-  background-color: var(--code-blue);
 }
 
 .newRowForm select{
@@ -282,10 +291,9 @@ input::placeholder {
 }
 
 .newRowFormContainer{
-  text-align: left;
-  display:flex;
-  justify-content: space-evenly;
-  flex-direction: row;
+  text-align: right;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .newRowFormValues{
@@ -489,6 +497,11 @@ input::placeholder {
   margin: 5px 3px;
 }
 
+.secondary-button:hover{
+  cursor: pointer;
+  background-color: #d5a000a7;
+}
+
 .second-table tr{
   width: 100%;
   align-items: center;
@@ -511,15 +524,23 @@ input::placeholder {
   margin: 15px 15px;
 }
 
+.dashboardHeader *{
+  display: inline-block;
+  float: left;
+  margin-left: 10px;
+}
+
 @media screen and (max-width: 1800px){
   .content{
     margin-top: 0;
   }
 
   .header{
-    display: flex;
+    display:flex;
     justify-content: space-between;
     align-items: center;
+    padding-right: 50px;
+    width: 100%;
   }
 
   .side-nav, .side-nav-collapsed {
