@@ -1,6 +1,6 @@
 package com.cd.inventorymanagementsystem.domain.computer.models;
 
-import com.cd.inventorymanagementsystem.domain.item.models.Item;
+import com.cd.inventorymanagementsystem.domain.item.Item;
 import com.cd.inventorymanagementsystem.domain.loan.models.Loan;
 import com.cd.inventorymanagementsystem.domain.maintenance.models.Maintenance;
 import jakarta.persistence.*;
