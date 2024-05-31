@@ -22,11 +22,13 @@ public class Maintenance {
     @GeneratedValue
     @Column(name="maintenance_id")
     private Integer id;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name ="computer_id")
-    private Computer computer;
+
+    @Column(name= "computer_id")
+    private Integer computerId;
+
     private Date date;
     private String description;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="maintenance_id")
     private List<Software> software;

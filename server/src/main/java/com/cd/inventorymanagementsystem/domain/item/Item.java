@@ -1,4 +1,4 @@
-package com.cd.inventorymanagementsystem.domain.item.models;
+package com.cd.inventorymanagementsystem.domain.item;
 
 import com.cd.inventorymanagementsystem.domain.loan.models.Loan;
 import com.cd.inventorymanagementsystem.domain.maintenance.models.Maintenance;

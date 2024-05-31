@@ -1,6 +1,5 @@
 package com.cd.inventorymanagementsystem.domain.loan.models;
 
-import com.cd.inventorymanagementsystem.domain.computer.models.Computer;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,9 +19,9 @@ public class Loan {
     @GeneratedValue
     private Integer id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name ="item_id")
-    private Computer computer;
+    @Column(name= "computer_id")
+    private Integer computerId;
+
     private Date startDate;
     private Date endDate;
 }
