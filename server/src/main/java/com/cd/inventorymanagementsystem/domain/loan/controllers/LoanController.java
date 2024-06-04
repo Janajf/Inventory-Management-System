@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/loan")
+@RequestMapping("/api/v1/loans")
 public class LoanController {
     private final Logger logger = LoggerFactory.getLogger(LoanController.class);
     private LoanService loanService;
