@@ -1,6 +1,8 @@
 package com.cd.inventorymanagementsystem.domain.loan.models;
 
 
+import com.cd.inventorymanagementsystem.domain.computer.models.Computer;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,9 +20,12 @@ public class Loan {
     @Id
     @GeneratedValue
     private Integer id;
+    private String name;
 
-    @Column(name= "computer_id")
-    private Integer computerId;
+    @ManyToOne
+    @JoinColumn(name = "computer_id")
+    @JsonBackReference
+    private Computer computer;
 
     private Date startDate;
     private Date endDate;

@@ -59,7 +59,6 @@ public class ComputerServiceImplTests {
                 .build();
 
         mockResponseComputer = Computer.builder()
-                .id(1)
                 .assetTag("asset tag")
                 .serialNumber("serial number")
                 .status("status")
@@ -82,7 +81,7 @@ public class ComputerServiceImplTests {
         BDDMockito.doReturn(mockResponseComputer).when(mockComputerRepo).save(ArgumentMatchers.any());
         Computer returnedComputer = computerService.createComputer(inputComputer);
         Assertions.assertNotNull(returnedComputer, "Computer should not be null");
-        Assertions.assertEquals(returnedComputer.getId(), 1);
+        Assertions.assertEquals(returnedComputer.getType() , "type");
     }
 
     @Test
@@ -108,7 +107,6 @@ public class ComputerServiceImplTests {
     public void updateComputerTestSuccess() throws ComputerException {
 
        Computer expectedComputerUpdate = Computer.builder()
-                .id(1)
                 .assetTag("asset tag")
                 .serialNumber("serial number")
                 .status("status")
@@ -136,7 +134,6 @@ public class ComputerServiceImplTests {
     public void updateComputerTestFail() throws ComputerException {
 
         Computer expectedComputerUpdate = Computer.builder()
-                .id(1)
                 .assetTag("asset tag")
                 .serialNumber("serial number")
                 .status("status")

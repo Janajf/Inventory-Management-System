@@ -2,6 +2,7 @@ package com.cd.inventorymanagementsystem.domain.user.controllers;
 
 import com.cd.inventorymanagementsystem.domain.computer.models.Computer;
 import com.cd.inventorymanagementsystem.domain.user.exceptions.UserException;
+import com.cd.inventorymanagementsystem.domain.user.models.Role;
 import com.cd.inventorymanagementsystem.domain.user.models.User;
 import com.cd.inventorymanagementsystem.domain.user.services.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -51,24 +52,20 @@ public class UserControllerTests {
         List<Computer> computers = new ArrayList<>();
 
         inputUser = User.builder()
-                .uid("uid")
                 .firstName("firstName")
                 .lastName("lastName")
                 .email("email")
                 .password("password")
-                .admin(true)
-                .computers(computers)
+                .role(Role.USER)
                 .build();
 
         mockResponseUser = User.builder()
                 .id(1)
-                .uid("uid")
                 .firstName("firstName")
                 .lastName("lastName")
                 .email("email")
                 .password("password")
-                .admin(true)
-                .computers(computers)
+                .role(Role.USER)
                 .build();
 
         JsonMapper jsonMapper = new JsonMapper();
@@ -80,7 +77,7 @@ public class UserControllerTests {
     public void createUserTestSuccess()throws Exception{
         BDDMockito.doReturn(mockResponseUser).when(mockUserService).createUser(any());
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/user")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonInputUser))
 
@@ -96,7 +93,7 @@ public class UserControllerTests {
 
         BDDMockito.doReturn(mockResponseUser).when(mockUserService).getUserById(1);
 
-        mockMvc.perform(get("/user/{id}", 1))
+        mockMvc.perform(get("/api/v1/users/{id}", 1))
 
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -109,7 +106,7 @@ public class UserControllerTests {
     public void getUserByIdTestFail() throws Exception{
         BDDMockito.doThrow(new UserException("User not found")).when(mockUserService).getUserById(1);
 
-        mockMvc.perform(get("/user/{id}", 1))
+        mockMvc.perform(get("/api/v1/users/{id}", 1))
                 .andExpect(status().isNotFound());
     }
 
@@ -119,7 +116,7 @@ public class UserControllerTests {
 
         BDDMockito.doReturn(mockResponseUser).when(mockUserService).getByEmail("email");
 
-        mockMvc.perform(get("/user/email/{email}", "email"))
+        mockMvc.perform(get("/api/v1/users/email/{email}", "email"))
 
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -132,7 +129,7 @@ public class UserControllerTests {
     public void getUserByEmailTestFail() throws Exception{
         BDDMockito.doThrow(new UserException("User not found")).when(mockUserService).getByEmail("email");
 
-        mockMvc.perform(get("/user/email/{email}", "email"))
+        mockMvc.perform(get("/api/v1/users/email/{email}", "email"))
                 .andExpect(status().isNotFound());
     }
 
@@ -143,18 +140,16 @@ public class UserControllerTests {
         List<Computer> computers = new ArrayList<>();
         User updatedUser = User.builder()
                 .id(1)
-                .uid("uid")
                 .firstName("firstName")
                 .lastName("lastName")
                 .email("updatedEmail")
                 .password("password")
-                .admin(true)
-                .computers(computers)
+                .role(Role.USER)
                 .build();
 
         BDDMockito.doReturn(updatedUser).when(mockUserService).updateUserById(any(), any());
 
-        mockMvc.perform(put("/user/{id}", 1)
+        mockMvc.perform(put("/api/v1/users/{id}", 1)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonInputUser))
 
@@ -169,7 +164,7 @@ public class UserControllerTests {
     public void updateUserTestFail() throws Exception{
         BDDMockito.doThrow(new UserException("User not found")).when(mockUserService).updateUserById(any(), any());
 
-        mockMvc.perform(put("/user/{id}", 1)
+        mockMvc.perform(put("/api/v1/users/{id}", 1)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonInputUser))
                 .andExpect(status().isNotFound());
@@ -179,7 +174,7 @@ public class UserControllerTests {
     @DisplayName("DELETE /user/1 - Success")
     public void deleteUserTestSuccess() throws Exception{
         BDDMockito.doReturn(true).when(mockUserService).deleteUserById(any());
-        mockMvc.perform(delete("/user/{id}", 1))
+        mockMvc.perform(delete("/api/v1/users/{id}", 1))
                 .andExpect(status().isNoContent());
     }
 
@@ -187,7 +182,7 @@ public class UserControllerTests {
     @DisplayName("DELETE /user/1 - Success")
     public void deleteUserTestFail() throws Exception{
         BDDMockito.doThrow(new UserException("User not found")).when(mockUserService).deleteUserById(any());
-        mockMvc.perform(delete("/user/{id}", 1))
+        mockMvc.perform(delete("/api/v1/users/{id}", 1))
                 .andExpect(status().isNotFound());
     }
 

@@ -49,10 +49,10 @@ public class MaintenanceServiceImpl implements MaintenanceService{
 
         Maintenance savedMaintenance = optionalMaintenance.get();
 
-        savedMaintenance.setComputerId(maintenance.getComputerId());
+        savedMaintenance .setComputer(maintenance.getComputer());
         savedMaintenance.setDate(maintenance.getDate());
         savedMaintenance.setDescription(maintenance.getDescription());
-        savedMaintenance.setSoftware(maintenance.getSoftware());
+
 
         return maintenanceRepo.save(savedMaintenance);
     }

@@ -3,6 +3,7 @@ package com.cd.inventorymanagementsystem.domain.maintenance.models;
 
 import com.cd.inventorymanagementsystem.domain.computer.models.Computer;
 import com.cd.inventorymanagementsystem.domain.software.models.Software;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,13 +24,12 @@ public class Maintenance {
     @Column(name="maintenance_id")
     private Integer id;
 
-    @Column(name= "computer_id")
-    private Integer computerId;
+    @ManyToOne
+    @JoinColumn(name = "computer_id")
+    @JsonBackReference
+    private Computer computer;
 
     private Date date;
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="maintenance_id")
-    private List<Software> software;
 }

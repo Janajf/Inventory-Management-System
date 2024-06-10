@@ -3,9 +3,11 @@ package com.cd.inventorymanagementsystem.domain.computer.models;
 import com.cd.inventorymanagementsystem.domain.item.Item;
 import com.cd.inventorymanagementsystem.domain.loan.models.Loan;
 import com.cd.inventorymanagementsystem.domain.maintenance.models.Maintenance;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -17,14 +19,6 @@ import java.util.List;
 @Entity
 @Table(name="computers")
 public class Computer extends Item {
-    @Id
-    @GeneratedValue
-    @Column(name="computer_id")
-    private Integer id;
-
-    @Column(name= "user_id")
-    private Integer userId;
-
     private String assetTag;
     private String serialNumber;
     private String status;
@@ -36,15 +30,15 @@ public class Computer extends Item {
     private String issuedTo;
     private String grantType;
     private Boolean loaned;
+    @OneToMany(mappedBy = "computer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Loan> loans = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "computer_id")
-    private List<Loan> loans;
+    @OneToMany(mappedBy = "computer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Maintenance> maintenances = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "computer_id")
-    private List<Maintenance> maintenances;
-
+    private String chargedUpdated;
 
 
 }

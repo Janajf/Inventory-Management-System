@@ -7,7 +7,12 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.List;
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "item_type")
 public abstract class Item {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String description;
@@ -15,19 +20,5 @@ public abstract class Item {
     private String grantIssuer;
     private Integer quantity;
     private Double price;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "item_id")
-    private List<Loan> loans;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name= "item_id")
-    private List<Maintenance> maintenances;
-
-
 
 }

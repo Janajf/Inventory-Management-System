@@ -2,6 +2,7 @@ package com.cd.inventorymanagementsystem.domain.user.services;
 
 import com.cd.inventorymanagementsystem.domain.computer.models.Computer;
 import com.cd.inventorymanagementsystem.domain.user.exceptions.UserException;
+import com.cd.inventorymanagementsystem.domain.user.models.Role;
 import com.cd.inventorymanagementsystem.domain.user.models.User;
 import com.cd.inventorymanagementsystem.domain.user.repos.UserRepo;
 import org.junit.jupiter.api.Assertions;
@@ -37,24 +38,20 @@ public class UserServiceImplTests {
         List<Computer> computers = new ArrayList<>();
 
         inputUser = User.builder()
-                .uid("uid")
                 .firstName("firstName")
                 .lastName("lastName")
                 .email("email")
                 .password("password")
-                .admin(true)
-                .computers(computers)
+                .role(Role.USER)
                 .build();
 
         mockResponseUser = User.builder()
                 .id(1)
-                .uid("uid")
                 .firstName("firstName")
                 .lastName("lastName")
                 .email("email")
                 .password("password")
-                .admin(true)
-                .computers(computers)
+                .role(Role.USER)
                 .build();
     }
 
@@ -118,13 +115,11 @@ public class UserServiceImplTests {
         List<Computer> computers = new ArrayList<>();
 
         User expectedUserUpdate = User.builder()
-                .uid("uid")
                 .firstName("firstName")
                 .lastName("lastName")
                 .email("email")
                 .password("password")
-                .admin(true)
-                .computers(computers)
+                .role(Role.USER)
                 .build();
 
         BDDMockito.doReturn(Optional.of(mockResponseUser)).when(mockUserRepo).findById(1);
@@ -139,13 +134,11 @@ public class UserServiceImplTests {
         List<Computer> computers = new ArrayList<>();
 
         User expectedUserUpdate = User.builder()
-                .uid("uid")
                 .firstName("firstName")
                 .lastName("lastName")
                 .email("email")
                 .password("password")
-                .admin(true)
-                .computers(computers)
+                .role(Role.USER)
                 .build();
 
         BDDMockito.doReturn(Optional.empty()).when(mockUserRepo).findById(1);

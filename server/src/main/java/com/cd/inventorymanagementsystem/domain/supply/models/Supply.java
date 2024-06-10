@@ -13,10 +13,7 @@ import lombok.*;
 @Entity
 @Table(name="supplies")
 public class Supply extends Item {
-    @Id
-    @GeneratedValue
-    @Column(name="supply_id")
-    private Integer id;
+
     private String sku;
     private int quantityInStock;
     private String unit;

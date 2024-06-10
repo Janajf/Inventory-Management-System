@@ -19,24 +19,32 @@ public class User {
     @GeneratedValue
     @Column(name="user_id")
     private Integer id;
-    private String uid;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
-    private Boolean admin;
+    private Role role;
+    @Lob
+    @Column(nullable = true)
+    private byte[] profilePicture;
+    @Column(nullable = true, length = 20)
+    private String profilePictureType;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private List<Computer> computers;
-
-
-    public User(String uid, String firstName, String lastName, String email, String password, Boolean admin) {
-        this.uid = uid;
+    public User(String firstName, String lastName, String email, String password, Role role, byte[] profilePicture, String profilePictureType) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.admin = admin;
+        this.role = role;
+        this.profilePicture = profilePicture;
+        this.profilePictureType = profilePictureType;
+    }
+
+    public User(String firstName, String lastName, String email, String password, Role role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 }

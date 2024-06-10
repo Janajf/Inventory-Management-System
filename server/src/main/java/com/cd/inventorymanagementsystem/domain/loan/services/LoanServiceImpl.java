@@ -53,7 +53,7 @@ public class LoanServiceImpl implements LoanService {
 
         Loan savedLoan = loanOptional.get();
 
-        savedLoan.setComputerId(loan.getComputerId());
+        savedLoan.setComputer(loan.getComputer());
         savedLoan.setStartDate(loan.getStartDate());
         savedLoan.setEndDate(loan.getEndDate());
         return loanRepo.save(savedLoan);

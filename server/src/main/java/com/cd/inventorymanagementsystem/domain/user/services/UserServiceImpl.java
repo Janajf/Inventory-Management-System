@@ -66,13 +66,13 @@ public class UserServiceImpl implements UserService{
 
         User savedUser = userOptional.get();
 
-        savedUser.setUid(user.getUid());
         savedUser.setFirstName(user.getFirstName());
         savedUser.setLastName(user.getLastName());
         savedUser.setEmail(user.getEmail());
         savedUser.setPassword(user.getPassword());
-        savedUser.setAdmin(user.getAdmin());
-        savedUser.setComputers(user.getComputers());
+        savedUser.setRole(user.getRole());
+        savedUser.setProfilePicture(user.getProfilePicture());
+        savedUser.setProfilePictureType(user.getProfilePictureType());
 
         return userRepo.save(savedUser);
     }
